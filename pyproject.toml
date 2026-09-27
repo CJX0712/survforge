@@ -1,0 +1,33 @@
+[project]
+name = "survforge"
+version = "0.1.0"
+description = "Modular survival analysis system: Cox/spline-Cox/XGBoost AFT/Cox + C-index-aware rank fusion, offline numpy fallback. Author: 晨星"
+authors = [{ name = "晨星" }]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 96
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "S", "BLE", "PL", "RUF"]
+ignore = [
+    "BLE001", # deliberate broad excepts at optional-dependency / fallback boundaries
+    "S110",   # try-except-pass in stdout reconfigure / optional imports
+    "S603",   # subprocess with fixed args in tests
+    "S101",   # asserts are the point in tests / internal invariants
+    "RUF059", # unused unpacked fixture variables in tests
+    "B017",   # blind exception assert in not-fitted contract tests
+    "B007",   # unused loop variable in tie-block scans
+    "PLW1510", # subprocess check arg in CLI smoke tests
+    "PLR2004", # magic values in test assertions
+    "PLW0603", # module-level seed state by design (core.seed)
+    "PLC0415", # lazy imports for optional deps / fast test collection
+    "PLR0913", "PLR0915", "PLR0917", # pipeline benchmark() complexity by design
+    "E741",   # single-letter Efron loop index in cox math
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

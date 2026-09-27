@@ -1,0 +1,8 @@
+numpy>=2.0
+scipy>=1.14
+pandas>=2.2
+lifelines==0.30.3
+xgboost==3.4.1
+optuna==5.0.0
+pytest>=8.0
+ruff>=0.8

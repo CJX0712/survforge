@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+envs/
+det1.json
+det2.json
+benchmark.json
+model_weights/
+data_cache/
+.env
+*.key
