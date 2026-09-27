@@ -49,10 +49,7 @@ def test_ipcw_equals_harrell_no_censoring():
     time = rng.exponential(5, 400)
     event = np.ones(400, dtype=bool)
     risk = rng.random(400)
-    assert (
-        abs(ipcw_c_index(time, event, risk) - harrell_c_index(time, event, risk))
-        < 1e-12
-    )
+    assert abs(ipcw_c_index(time, event, risk) - harrell_c_index(time, event, risk)) < 1e-12
 
 
 def test_ipcw_with_censoring_runs():

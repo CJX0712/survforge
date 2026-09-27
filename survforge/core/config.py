@@ -50,6 +50,4 @@ class SurvConfig:
                     elif isinstance(cur, float):
                         setattr(self, f.name, float(raw))
                 except ValueError as exc:
-                    raise E100ConfigError(
-                        f"bad env override {env_key}={raw!r}"
-                    ) from exc
+                    raise E100ConfigError(f"bad env override {env_key}={raw!r}") from exc

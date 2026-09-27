@@ -70,12 +70,8 @@ def test_spline_cox_beats_linear_on_pure_nonlinear():
     ds = SurvDataset(X=X, time=np.minimum(T, C), event=T <= C, true_risk=risk)
     tr, va, ho = train_val_holdout(ds, 1200, 300, seed=13)
 
-    c_lin = harrell_c_index(
-        ho.time, ho.event, NumpyCoxBackend().fit(tr, 0).predict_risk(ho.X)
-    )
-    c_spl = harrell_c_index(
-        ho.time, ho.event, SplineCoxBackend().fit(tr, 0).predict_risk(ho.X)
-    )
+    c_lin = harrell_c_index(ho.time, ho.event, NumpyCoxBackend().fit(tr, 0).predict_risk(ho.X))
+    c_spl = harrell_c_index(ho.time, ho.event, SplineCoxBackend().fit(tr, 0).predict_risk(ho.X))
     assert c_spl > c_lin + 0.05
 
 

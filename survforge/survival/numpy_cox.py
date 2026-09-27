@@ -51,9 +51,7 @@ def cox_fit(
         # = all subjects with time >= ts[i]
         S0 = np.cumsum(w[::-1])[::-1]
         S1 = np.cumsum((w[:, None] * Xs)[::-1], axis=0)[::-1]
-        S2 = np.cumsum(
-            (w[:, None, None] * Xs[:, :, None] * Xs[:, None, :])[::-1], axis=0
-        )[::-1]
+        S2 = np.cumsum((w[:, None, None] * Xs[:, :, None] * Xs[:, None, :])[::-1], axis=0)[::-1]
 
         loglik_new = 0.0
         grad = np.zeros(d)

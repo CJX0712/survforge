@@ -38,9 +38,7 @@ def make_survival(
     X = rng.normal(size=(n, d))
     linear = 0.9 * X[:, 0] + 0.7 * X[:, 1]
     nonlinear = (
-        np.sin(1.7 * X[:, 2])
-        + 0.8 * np.maximum(X[:, 3], 0.0) * X[:, 4]
-        - 0.9 * X[:, 5] ** 2
+        np.sin(1.7 * X[:, 2]) + 0.8 * np.maximum(X[:, 3], 0.0) * X[:, 4] - 0.9 * X[:, 5] ** 2
     )
     true_risk = beta_scale * (linear + nonlinear)
 

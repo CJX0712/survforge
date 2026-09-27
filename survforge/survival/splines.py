@@ -14,9 +14,7 @@ def nspline_basis(x: np.ndarray, knots: np.ndarray) -> np.ndarray:
         t = np.clip(x, knots[j], knots[-2])
         term = np.maximum(t - knots[j], 0) ** 3
         term -= (
-            np.maximum(x - knots[-2], 0) ** 3
-            * (knots[-2] - knots[j])
-            / (knots[-1] - knots[-2])
+            np.maximum(x - knots[-2], 0) ** 3 * (knots[-2] - knots[j]) / (knots[-1] - knots[-2])
         )
         out.append(term)
     return np.column_stack(out)

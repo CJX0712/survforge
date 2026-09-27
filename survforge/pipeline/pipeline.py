@@ -90,8 +90,7 @@ def run_split(
                 ens.weights_ = {n: 1.0 / k for n in member_names}
             elif mode == "cweighted":
                 c_vals = {
-                    n: harrell_c_index(val.time, val.event, s)
-                    for n, s in val_scores.items()
+                    n: harrell_c_index(val.time, val.event, s) for n, s in val_scores.items()
                 }
                 floor = min(c_vals.values()) - 1e-6
                 raw = {n: max(v - floor, 1e-3) for n, v in c_vals.items()}
@@ -129,17 +128,9 @@ def run_split(
 
 
 def _agg(rows_by_seed: dict, backend: str) -> tuple[float, float, float, float]:
-    cs = [
-        r.c_index
-        for rows in rows_by_seed.values()
-        for r in rows
-        if r.backend == backend
-    ]
+    cs = [r.c_index for rows in rows_by_seed.values() for r in rows if r.backend == backend]
     is_ = [
-        r.ipcw_c_index
-        for rows in rows_by_seed.values()
-        for r in rows
-        if r.backend == backend
+        r.ipcw_c_index for rows in rows_by_seed.values() for r in rows if r.backend == backend
     ]
     return (
         float(np.mean(cs)),
@@ -212,9 +203,7 @@ def benchmark(cfg: SurvConfig | None = None) -> dict:
     table = {}
     for b in backends:
         cm, cs, im, istd = _agg(all_rows, b)
-        tier = next(
-            r.tier for rows in all_rows.values() for r in rows if r.backend == b
-        )
+        tier = next(r.tier for rows in all_rows.values() for r in rows if r.backend == b)
         table[b] = {
             "backend": b,
             "tier": tier,
@@ -238,9 +227,7 @@ def benchmark(cfg: SurvConfig | None = None) -> dict:
         "pass": bool(delta_classic >= cfg.gate_delta_c and delta_classic > sig_classic),
     }
     single_candidates = [
-        b
-        for b in backends
-        if table[b]["tier"] == "tier0" and not b.startswith("fusion")
+        b for b in backends if table[b]["tier"] == "tier0" and not b.startswith("fusion")
     ]
     best_single = max(single_candidates, key=lambda b: table[b]["c_mean"])
     gate_flagship["best_single"] = best_single
